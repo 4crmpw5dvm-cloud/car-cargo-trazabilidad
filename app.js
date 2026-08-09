@@ -1,4 +1,4 @@
-const K='carcargo_state_v1',townOrder=['Amagá','Fredonia','Venecia','Ciudad Bolívar','Andes','Jardín'];
+Uyyyyy const K='carcargo_state_v1',townOrder=['Amagá','Fredonia','Venecia','Ciudad Bolívar','Andes','Jardín'];
 let st=JSON.parse(localStorage.getItem(K)||'null')||{route:{status:'sin_iniciar'},clients:[]};
 let active=null,statusSel='pendiente',deferred=null;
 const $=id=>document.getElementById(id);
@@ -79,7 +79,7 @@ function edit(x){
 function openDelivery(x){
   active=x;let c=st.clients.find(z=>z.id===x);if(!c)return;let d=c.delivery||{};
   statusSel=status(c);el.mTitle.textContent=c.name;el.mMeta.textContent=`${c.town} · ${c.boxes} cajas · ${c.baskets} canastillas`;
-  el.receiver.value=d.receiver||'';el.actual.value=d.actual||new Date().toTimeString().slice(0,5);el.obs.value=d.obs||'';
+  el.receiver.value=d.receiver||'';el.actual.value=d.actual||new Date().toTimeString().slice(0,5);el.obs.value=d.obs||'';el.photo.value='';
   el.gpsText.textContent=d.loc?`${d.loc.lat.toFixed(5)}, ${d.loc.lng.toFixed(5)}`:'Sin ubicación';
   el.modal.hidden=false;setTimeout(()=>restoreSig(d.sig),20);
 }
