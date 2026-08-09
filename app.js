@@ -117,7 +117,7 @@ el.print.onclick=()=>{show('reporte');setTimeout(()=>window.print(),100)};
 el.backup.onclick=()=>download('respaldo_car_cargo.json',JSON.stringify(st,null,2),'application/json');
 el.restore.onchange=async e=>{const f=e.target.files[0];if(!f)return;const anterior=localStorage.getItem(K);try{const txt=await f.text();const data=JSON.parse(txt);if(!data||!Array.isArray(data.clients))throw new Error('Formato de respaldo no válido');localStorage.removeItem(K);localStorage.setItem(K,JSON.stringify(data));st=data;render();alert('Respaldo importado correctamente');}catch(err){if(anterior)localStorage.setItem(K,anterior);alert('Error al importar: '+err.message)}e.target.value='';};
 function download(n,d,t){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([d],{type:t}));a.download=n;a.click()}
-function readFile(f){return new Promise((r,j)=>{let x=new FileReader;x.onload=()=>r(x.result);x.onerror=j;x.readAsDataURL(f)})}
+function readFile(f){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const max=1200;let w=img.width,h=img.height;if(w>h&&w>max){h=Math.round(h*max/w);w=max}else if(h>=w&&h>max){w=Math.round(w*max/h);h=max}const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.drawImage(img,0,0,w,h);resolve(c.toDataURL('image/jpeg',0.65))};img.onerror=reject;img.src=r.result};r.onerror=reject;r.readAsDataURL(f)})}
 
 let ctx=el.sig.getContext('2d'),draw=false;ctx.lineWidth=3;ctx.lineCap='round';
 function p(e){let r=el.sig.getBoundingClientRect(),q=e.touches?e.touches[0]:e;return{x:(q.clientX-r.left)*el.sig.width/r.width,y:(q.clientY-r.top)*el.sig.height/r.height}}
