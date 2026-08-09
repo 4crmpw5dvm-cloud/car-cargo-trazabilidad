@@ -115,7 +115,7 @@ function show(x){
 el.csv.onclick=()=>download('reporte_car_cargo.csv',[['Cliente','Municipio','Direccion','ETA','Cajas','Canastillas','Estado','Recibe','Hora','Lat','Lng','Observacion'],...st.clients.map(c=>{let d=c.delivery||{};return [c.name,c.town,c.address,c.eta,c.boxes,c.baskets,lab(status(c)),d.receiver||'',d.actual||'',d.loc?.lat||'',d.loc?.lng||'',d.obs||'']})].map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv');
 el.print.onclick=()=>{show('reporte');setTimeout(()=>window.print(),100)};
 el.backup.onclick=()=>download('respaldo_car_cargo.json',JSON.stringify(st,null,2),'application/json');
-el.restore.onchange=async e=>{try{st=JSON.parse(await e.target.files[0].text());save();render();alert('Respaldo importado')}catch{alert('Archivo inválido')}};
+el.restore.onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const txt=await f.text();const data=JSON.parse(txt);if(!data||!Array.isArray(data.clients))throw new Error('Formato de respaldo no válido');st=data;save();render();alert('Respaldo importado correctamente');}catch(err){alert('Error al importar: '+err.message)}e.target.value='';};
 function download(n,d,t){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([d],{type:t}));a.download=n;a.click()}
 function readFile(f){return new Promise((r,j)=>{let x=new FileReader;x.onload=()=>r(x.result);x.onerror=j;x.readAsDataURL(f)})}
 
