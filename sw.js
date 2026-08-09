@@ -1,5 +1,5 @@
-const C='carcargo-v6';
-const A=['./','./index.html','./styles.css?v=6','./app.js?v=6','./manifest.webmanifest'];
+const C='carcargo-v7';
+const A=['./','./index.html','./styles.css?v=7','./app.js?v=7','./manifest.webmanifest'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(C).then(c=>c.addAll(A)))});
 self.addEventListener('activate',e=>e.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==C).map(k=>caches.delete(k)))),self.clients.claim()])));
 self.addEventListener('fetch',e=>{
