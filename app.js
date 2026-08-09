@@ -1,4 +1,4 @@
-Uyyyyy const K='carcargo_state_v1',townOrder=['Amagá','Fredonia','Venecia','Ciudad Bolívar','Andes','Jardín'];
+const K='carcargo_state_v1',townOrder=['Amagá','Fredonia','Venecia','Ciudad Bolívar','Andes','Jardín'];
 let st=JSON.parse(localStorage.getItem(K)||'null')||{route:{status:'sin_iniciar'},clients:[]};
 let active=null,statusSel='pendiente',deferred=null;
 const $=id=>document.getElementById(id);
