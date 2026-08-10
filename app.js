@@ -67,7 +67,7 @@ el.form.addEventListener('submit',e=>{
   show('ruta');
 });
 el.cancel.onclick=()=>{
-  el.form.reset();el.id.value='';el.eta.value='08:00';el.boxes.value=1;el.baskets.value=0;el.formTitle.textContent='Agregar cliente';
+  el.form.reset();el.id.value='';el.eta.value='08:00';el.boxes.value=1;el.baskets.value=0;el.formTitle.textContent='Agregar cliente';show('ruta');
 };
 
 function edit(x){
