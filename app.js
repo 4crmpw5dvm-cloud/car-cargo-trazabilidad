@@ -104,7 +104,7 @@ el.saveDelivery.onclick=async()=>{
   save();render();el.msg.textContent='Entrega guardada';
 };
 
-el.start.onclick=()=>{st.route={status:'en_curso',startedAt:new Date().toISOString()};save();render()};
+el.start.onclick=()=>{if(st.route.status==='cerrada'){nuevaRuta()}else{st.route={status:'en_curso',startedAt:new Date().toISOString()};save();render()}};
 el.finish.onclick=()=>{st.route.status='cerrada';st.route.finishedAt=new Date().toISOString();save();render()};
 function nuevaRuta(){if(st.route.status==='cerrada'){st.history.push({route:JSON.parse(JSON.stringify(st.route)),clients:JSON.parse(JSON.stringify(st.clients))});st.clients=st.clients.map(c=>{let n={...c};delete n.delivery;return n})}st.route={status:'en_curso',startedAt:new Date().toISOString()};save();render();}
 el.filter.onchange=render;
