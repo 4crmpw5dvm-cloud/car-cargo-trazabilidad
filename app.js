@@ -104,7 +104,7 @@ el.saveDelivery.onclick=async()=>{
 };
 
 el.start.onclick=()=>{st.route={status:'en_curso',startedAt:new Date().toISOString()};save();render()};
-el.finish.onclick=()=>{st.route.status='cerrada';st.route.finishedAt=new Date().toISOString();save();render()};
+el.finish.onclick=()=>{st.route.status='cerrada';st.route.finishedAt=new Date().toISOString();save();render();alert('Ruta cerrada correctamente');};
 el.filter.onchange=render;
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.tab));
 function show(x){
