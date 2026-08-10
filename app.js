@@ -82,7 +82,9 @@ function openDelivery(x){
   el.receiver.value=d.receiver||'';el.actual.value=d.actual||new Date().toTimeString().slice(0,5);el.obs.value=d.obs||'';el.photo.value='';
   el.gpsText.textContent=d.loc?`${d.loc.lat.toFixed(5)}, ${d.loc.lng.toFixed(5)}`:'Sin ubicación';
   let old=document.getElementById('savedPhoto');if(old)old.remove();if(d.photo){let im=document.createElement('img');im.id='savedPhoto';im.src=d.photo;im.style='max-width:100%;margin-top:8px;border-radius:12px';el.photo.parentElement.appendChild(im);}
-  el.modal.hidden=false;setTimeout(()=>restoreSig(d.sig),20);
+  el.modal.hidden=false;document.querySelectorAll('[data-s]').forEach(b=>{
+  b.classList.toggle('alt', b.dataset.s!==statusSel);
+});setTimeout(()=>restoreSig(d.sig),20);
 }
 function closeDelivery(){el.modal.hidden=true;active=null;el.msg.textContent=''}
 el.closeModal.addEventListener('click',closeDelivery);
