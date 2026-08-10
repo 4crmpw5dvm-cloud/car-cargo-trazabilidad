@@ -30,7 +30,8 @@ function render(){
   let f=el.filter.value,ls=st.clients.filter(c=>f==='all'||c.town===f).sort((a,b)=>(a.eta||'').localeCompare(b.eta||''));
   el.routeList.innerHTML=ls.map(c=>card(c)).join('')||'<p>Sin clientes.</p>';
   el.clientList.innerHTML=st.clients.map(c=>card(c,true)).join('')||'<p>Sin clientes.</p>';
-  el.tbody.innerHTML=st.clients.map(c=>{let d=c.delivery||{};return `<tr><td>${esc(c.name)}</td><td>${esc(c.town)}</td><td>${esc(c.eta)}</td><td>${c.boxes}</td><td>${c.baskets}</td><td>${lab(status(c))}</td><td>${esc(d.receiver||'')}</td><td>${esc(d.actual||'')}</td><td>${d.loc?d.loc.lat.toFixed(5)+','+d.loc.lng.toFixed(5):''}</td><td>${esc(d.obs||'')}</td></tr>`}).el.tbody.innerHTML+=st.history.length?`<tr><td colspan="20"><strong>Historial de rutas anteriores</strong><br>${st.history.map((h,i)=>{let f=h.route.finishedAt||h.route.startedAt||'';let e=h.clients.filter(c=>status(c)==='entregado').length;return `${i+1}. ${f?new Date(f).toLocaleString('es-CO'):'Sin fecha'} · ${e}/${h.clients.length} entregados`}).join('<br>')}</td></tr>`:'';
+  el.tbody.innerHTML=st.clients.map(c=>{let d=c.delivery||{};return `<tr><td>${esc(c.name)}</td><td>${esc(c.town)}</td><td>${esc(c.eta)}</td><td>${c.boxes}</td><td>${c.baskets}</td><td>${lab(status(c))}</td><td>${esc(d.receiver||'')}</td><td>${esc(d.actual||'')}</td><td>${d.loc?d.loc.lat.toFixed(5)+','+d.loc.lng.toFixed(5):''}</td><td>${esc(d.obs||'')}</td></tr>`}).
+    el.tbody.innerHTML+=st.history.length?`<tr><td colspan="20"><strong>Historial de rutas anteriores</strong><br>${st.history.map((h,i)=>{let f=h.route.finishedAt||h.route.startedAt||'';let e=h.clients.filter(c=>status(c)==='entregado').length;return `${i+1}. ${f?new Date(f).toLocaleString('es-CO'):'Sin fecha'} · ${e}/${h.clients.length} entregados`}).join('<br>')}</td></tr>`:'';
   bind();
 }
 function bind(){
