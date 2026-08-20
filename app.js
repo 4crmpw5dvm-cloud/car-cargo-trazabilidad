@@ -78,7 +78,7 @@ function edit(x){
 }
 function openDelivery(x){
   active=x;let c=st.clients.find(z=>z.id===x);if(!c)return;let d=c.delivery||{};
-  statusSel=status(c);el.mTitle.textContent=c.name;el.mMeta.textContent=`${c.town} · ${c.boxes} cajas · ${c.baskets} canastillas`;
+  statusSel=status(c);document.querySelectorAll('[data-s]').forEach(b=>b.classList.toggle('selected',b.dataset.s===statusSel));el.mTitle.textContent=c.name;el.mMeta.textContent=`${c.town} · ${c.boxes} cajas · ${c.baskets} canastillas`;
   el.receiver.value=d.receiver||'';el.actual.value=d.actual||new Date().toTimeString().slice(0,5);el.obs.value=d.obs||'';el.photo.value='';
   el.gpsText.textContent=d.loc?`${d.loc.lat.toFixed(5)}, ${d.loc.lng.toFixed(5)}`:'Sin ubicación';
   let old=document.getElementById('savedPhoto');if(old)old.remove();if(d.photo){let im=document.createElement('img');im.id='savedPhoto';im.src=d.photo;im.style='max-width:100%;margin-top:8px;border-radius:12px';el.photo.parentElement.appendChild(im);}
@@ -90,7 +90,7 @@ function closeDelivery(){el.modal.hidden=true;active=null;el.msg.textContent=''}
 el.closeModal.addEventListener('click',closeDelivery);
 el.modal.addEventListener('click',e=>{if(e.target===el.modal)closeDelivery()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!el.modal.hidden)closeDelivery()});
-document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{statusSel=b.dataset.s;el.msg.textContent='Estado: '+lab(statusSel)});
+document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{statusSel=b.dataset.s;document.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('selected',x===b));el.msg.textContent='Estado: '+lab(statusSel)});
 
 el.gps.onclick=()=>navigator.geolocation?navigator.geolocation.getCurrentPosition(p=>{
   let c=st.clients.find(z=>z.id===active);if(!c)return;c.delivery=c.delivery||{};
